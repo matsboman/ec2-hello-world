@@ -1,0 +1,27 @@
+version: 0.0
+os: linux
+files:
+- source: /
+  destination: /home/jaeyi/spring-boot-test-app
+  overwrite: true
+permissions:
+- object: /home/jaeyi/spring-boot-test-app
+  pattern: "*.sh"
+  owner: root
+  group: root
+  mode: 755
+  type:
+   - file
+hooks:
+  BeforeInstall:
+  - location: before_install.sh
+    timeout: 300
+    runas: root
+  ApplicationStart:
+  - location: start_server.sh
+    timeout: 300
+    runas: root
+  ApplicationStop:
+  - location: stop_server.sh
+    timeout: 300
+    runas: root

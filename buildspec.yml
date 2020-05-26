@@ -1,11 +1,25 @@
 version: 0.2
-
 phases:
+  install:
+    commands:
+    - echo installing maven...
+    - apt-get update -y
+    - apt-get install -y maven
+    - apt-get install -y openjdk-8-jdk
   build:
     commands:
-      - mvn clean
-      - mvn install
+    - echo building my spring boot
+    - echo $JAVA_HOME
+    - mvn install
+  post_build:
+    commands:
+    - ls appspec.yml
 artifacts:
   files:
-    - 'Dockerfile'
-    - 'target/spring-boot-0.0.1-SNAPSHOT.jar'
+  - target/*.jar
+  - scripts/*.sh
+  - appspec.yml
+  discard-paths: yes
+cache:
+  paths:
+  - '/root/.m2/**/*'
