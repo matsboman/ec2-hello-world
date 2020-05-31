@@ -7,22 +7,22 @@ public class CalculationResult {
 	private Double normTime;
 	private Double additionalServices;
 	private Double TotalTime;
-	private Integer numberOfMen;
+	private Integer numberOfPersonnel;
 	private Double establishment;
-	private Integer totalPrice;
-	private Integer minimumPrice;
-	private Integer totalLaborCost;
+	private Integer laborPrice;
+	private Integer minimumLaborPrice;
+	private Integer totalLaborPrice;
 	private Integer additionalStaffing;
-	private Integer totalCostNormTime;
+	private Integer totalPriceNormTimeSum;
 	private Integer materialPrice;
 	private Integer materialMinPrice;
 	private Integer totalMaterial;
-	private Integer materialCost;
-	private Integer rebateMaterial;
-	private Integer materialTotalCost;
-	private Integer workAdditional;
-	private Integer establishmentCost;
-	private Integer workTotalCost;
+	private Integer materialPriceSum;
+	private Integer discountMaterial;
+	private Integer materialTotalPriceSum;
+	private Integer laborAdditionalSum;
+	private Integer establishmentPrice;
+	private Integer laborTotalPriceSum;
 	private Integer grandTotal;
 	
 	public Double getSqm() {
@@ -61,11 +61,11 @@ public class CalculationResult {
 	public void setTotalTime(Double totalTime) {
 		TotalTime = totalTime;
 	}
-	public Integer getNumberOfMen() {
-		return numberOfMen;
+	public Integer getNumberOfPersonnel() {
+		return numberOfPersonnel;
 	}
-	public void setNumberOfMen(Integer numberOfMen) {
-		this.numberOfMen = numberOfMen;
+	public void setNumberOfPersonnel(Integer numberOfMen) {
+		this.numberOfPersonnel = numberOfMen;
 	}
 	public Double getEstablishment() {
 		return establishment;
@@ -73,23 +73,23 @@ public class CalculationResult {
 	public void setEstablishment(Double establishment) {
 		this.establishment = establishment;
 	}
-	public Integer getTotalPrice() {
-		return totalPrice;
+	public Integer getLaborPrice() {
+		return laborPrice;
 	}
-	public void setTotalPrice(Integer totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setLaborPrice(Integer totalPrice) {
+		this.laborPrice = totalPrice;
 	}
-	public Integer getMinimumPrice() {
-		return minimumPrice;
+	public Integer getMinimumLaborPrice() {
+		return minimumLaborPrice;
 	}
-	public void setMinimumPrice(Integer minimumPrice) {
-		this.minimumPrice = minimumPrice;
+	public void setMinimumLaborPrice(Integer minimumPrice) {
+		this.minimumLaborPrice = minimumPrice;
 	}
-	public Integer getTotalLaborCost() {
-		return totalLaborCost;
+	public Integer getTotalLaborPrice() {
+		return totalLaborPrice;
 	}
-	public void setTotalLaborCost(Integer totalLaborCost) {
-		this.totalLaborCost = totalLaborCost;
+	public void setTotalLaborPrice(Integer totalLaborCost) {
+		this.totalLaborPrice = totalLaborCost;
 	}
 	public Integer getAdditionalStaffing() {
 		return additionalStaffing;
@@ -97,11 +97,11 @@ public class CalculationResult {
 	public void setAdditionalStaffing(Integer additionalStaffing) {
 		this.additionalStaffing = additionalStaffing;
 	}
-	public Integer getTotalCostNormTime() {
-		return totalCostNormTime;
+	public Integer getTotalPriceNormTimeSum() {
+		return totalPriceNormTimeSum;
 	}
-	public void setTotalCostNormTime(Integer totalCostNormTime) {
-		this.totalCostNormTime = totalCostNormTime;
+	public void setTotalPriceNormTimeSum(Integer totalCostNormTime) {
+		this.totalPriceNormTimeSum = totalCostNormTime;
 	}
 	public Integer getMaterialPrice() {
 		return materialPrice;
@@ -121,41 +121,41 @@ public class CalculationResult {
 	public void setTotalMaterial(Integer totalMaterial) {
 		this.totalMaterial = totalMaterial;
 	}
-	public Integer getMaterialCost() {
-		return materialCost;
+	public Integer getMaterialPriceSum() {
+		return materialPriceSum;
 	}
-	public void setMaterialCost(Integer materialCost) {
-		this.materialCost = materialCost;
+	public void setMaterialPriceSum(Integer materialCost) {
+		this.materialPriceSum = materialCost;
 	}
-	public Integer getRebateMaterial() {
-		return rebateMaterial;
+	public Integer getDiscountMaterial() {
+		return discountMaterial;
 	}
-	public void setRebateMaterial(Integer rebateMaterial) {
-		this.rebateMaterial = rebateMaterial;
+	public void setDiscountMaterial(Integer rebateMaterial) {
+		this.discountMaterial = rebateMaterial;
 	}
-	public Integer getMaterialTotalCost() {
-		return materialTotalCost;
+	public Integer getMaterialTotalPriceSum() {
+		return materialTotalPriceSum;
 	}
-	public void setMaterialTotalCost(Integer materialTotalCost) {
-		this.materialTotalCost = materialTotalCost;
+	public void setMaterialTotalPriceSum(Integer materialTotalCost) {
+		this.materialTotalPriceSum = materialTotalCost;
 	}
-	public Integer getWorkAdditional() {
-		return workAdditional;
+	public Integer getLaborAdditionalSum() {
+		return laborAdditionalSum;
 	}
-	public void setWorkAdditional(Integer workAdditional) {
-		this.workAdditional = workAdditional;
+	public void setLaborAdditionalSum(Integer laborAdditional) {
+		this.laborAdditionalSum = laborAdditional;
 	}
-	public Integer getEstablishmentCost() {
-		return establishmentCost;
+	public Integer getEstablishmentPrice() {
+		return establishmentPrice;
 	}
-	public void setEstablishmentCost(Integer establishmentCost) {
-		this.establishmentCost = establishmentCost;
+	public void setEstablishmentPrice(Integer establishmentCost) {
+		this.establishmentPrice = establishmentCost;
 	}
-	public Integer getWorkTotalCost() {
-		return workTotalCost;
+	public Integer getLaborTotalPriceSum() {
+		return laborTotalPriceSum;
 	}
-	public void setWorkTotalCost(Integer workTotalCost) {
-		this.workTotalCost = workTotalCost;
+	public void setLaborTotalPriceSum(Integer workTotalCost) {
+		this.laborTotalPriceSum = workTotalCost;
 	}
 	public Integer getGrandTotal() {
 		return grandTotal;

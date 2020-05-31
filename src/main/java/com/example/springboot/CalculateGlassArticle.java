@@ -28,17 +28,17 @@ public class CalculateGlassArticle {
 	private double establishment;
 	private int totalPrice;
 	private int hourlyRate;
-	private int additionalMen;
+	private int additionalPersonnel;
 	private int additionalHours;
 	private int totalMaterial;
 	private int minimumPrice;
-	private int totalCostNormTime;
-	private int totalLaborCost;
-	private int numberOfMen;
-	private int materialCost;
+	private int totalPriceNormTime;
+	private int totalLaborPrice;
+	private int numberOfPersonnel;
+	private int materialPriceSum;
 	private int rebateMaterial;
-	private int workAdditional;
-	private int establishmentCost;
+	private int laborAdditional;
+	private int establishmentPrice;
 	private static final double COMBINED_METER_LIMIT_1 = 3.2;
 	private static final double COMBINED_METER_LIMIT_2 = 5.5;
 	private static final double COMBINED_METER_LIMIT_3 = 8.6;
@@ -72,7 +72,8 @@ public class CalculateGlassArticle {
 		this.height = input.getHeight();
 		this.hourlyRate = input.getHourlyRate();
 		this.minSqm = input.getMinSqm();
-		this.additionalMen = input.getAdditionalMen();
+		this.additionalServices = input.getAdditionalServices();
+		this.additionalPersonnel = input.getAdditionalPersonnel();
 		this.additionalHours = input.getAdditionalHours();
 
 		calculateMaterial();
@@ -86,25 +87,25 @@ public class CalculateGlassArticle {
 		result.setAdditionalStaffing(getAdditionalStaffing());
 		result.setCombinedMeters(getCombinedMeters());
 		result.setEstablishment(getEstablishment());
-		result.setEstablishmentCost(getEstablishmentCost());
+		result.setEstablishmentPrice(getEstablishmentPrice());
 		result.setGrandTotal(getGrandTotal());
 		result.setHourlyRate(getHourlyRate());
-		result.setMaterialCost(getMaterialCost());
+		result.setMaterialPriceSum(getMaterialPriceSum());
 		result.setMaterialMinPrice(getMaterialMinPrice());
 		result.setMaterialPrice(getMaterialPrice());
-		result.setMaterialTotalCost(getMaterialTotalCost());
-		result.setMinimumPrice(getMinimumPrice());
+		result.setMaterialTotalPriceSum(getMaterialTotalPrice());
+		result.setMinimumLaborPrice(getMinimumPrice());
 		result.setNormTime(getNormTime());
-		result.setNumberOfMen(getNumberOfMen());
-		result.setRebateMaterial(getRebateMaterial());
+		result.setNumberOfPersonnel(getNumberOfPersonnel());
+		result.setDiscountMaterial(getRebateMaterial());
 		result.setSqm(getSqm());
-		result.setTotalCostNormTime(getTotalCostNormTime());
-		result.setTotalLaborCost(getTotalLaborCost());
+		result.setTotalPriceNormTimeSum(getTotalPriceNormTime());
+		result.setTotalLaborPrice(getTotalLaborPrice());
 		result.setTotalMaterial(getTotalMaterial());
-		result.setTotalPrice(getTotalPrice());
+		result.setLaborPrice(getTotalPrice());
 		result.setTotalTime(getTotalTime());
-		result.setWorkAdditional(getWorkAdditional());
-		result.setWorkTotalCost(getWorkTotalCost());
+		result.setLaborAdditionalSum(getLaborAdditional());
+		result.setLaborTotalPriceSum(getWorkTotalCost());
 		
 		return result;
 	}
@@ -126,18 +127,19 @@ public class CalculateGlassArticle {
 		double constant = COMBINED_METER_CONST_1
 				+ (COMBINED_METER_LIMIT_1 <= this.combinedMeters ? COMBINED_METER_CONST_2 : 0)
 				+ (COMBINED_METER_LIMIT_2 <= this.combinedMeters ? COMBINED_METER_CONST_3 : 0);
-		this.additionalServices = (ADDITION_COMBINED_METER_LIMIT_1 < this.combinedMeters ? ADDITION_CONST_1 : 0)
-				+ (ADDITION_COMBINED_METER_LIMIT_2 < this.combinedMeters ? ADDITION_CONST_2 : 0)
-				+ (ADDITION_COMBINED_METER_LIMIT_3 < this.combinedMeters ? ADDITION_CONST_3 : 0);
+		// Take input from user
+//		this.additionalServices = (ADDITION_COMBINED_METER_LIMIT_1 < this.combinedMeters ? ADDITION_CONST_1 : 0)
+//				+ (ADDITION_COMBINED_METER_LIMIT_2 < this.combinedMeters ? ADDITION_CONST_2 : 0)
+//				+ (ADDITION_COMBINED_METER_LIMIT_3 < this.combinedMeters ? ADDITION_CONST_3 : 0);
 		this.normTime = Math.pow(this.combinedMeters / denominator, 2d) + constant;
 		this.totalTime = this.normTime + this.additionalServices;
 		this.totalPrice = (int) Math.round(this.totalTime * this.hourlyRate);
 		this.minimumPrice = (int) Math
 				.round(this.normTime < MINIMUM_PRICE_LIMIT ? (MINIMUM_PRICE_LIMIT * this.hourlyRate)
 						: (this.totalTime * this.hourlyRate));
-		this.totalCostNormTime = Math.max(this.totalPrice, this.minimumPrice);
-		this.totalLaborCost = Math.round(this.combinedMeters < COMBINED_METER_LIMIT_3
-				? (this.totalCostNormTime + this.hourlyRate * this.additionalMen * this.additionalHours)
+		this.totalPriceNormTime = Math.max(this.totalPrice, this.minimumPrice);
+		this.totalLaborPrice = Math.round(this.combinedMeters < COMBINED_METER_LIMIT_3
+				? (this.totalPriceNormTime + this.hourlyRate * this.additionalPersonnel * this.additionalHours)
 				: 0);
 		// TODO: Verify establishment calculation with multiple glass panes, we assume
 		// just to multiply
@@ -145,17 +147,17 @@ public class CalculateGlassArticle {
 		this.establishment = ESTABLISHMENT_CONST_1
 				+ (ESTABLISHMENT_COMBINED_METER_LIMIT_1 < (combinedMeters * this.quantity) ? ESTABLISHMENT_CONST_1 : 0)
 				+ (ESTABLISHMENT_COMBINED_METER_LIMIT_2 < (combinedMeters * this.quantity) ? ESTABLISHMENT_CONST_2 : 0);
-		this.numberOfMen = NUM_MEN_CONST + (ESTABLISHMENT_NUM_MEN_LIMIT_1 < this.establishment ? NUM_MEN_CONST : 0)
+		this.numberOfPersonnel = NUM_MEN_CONST + (ESTABLISHMENT_NUM_MEN_LIMIT_1 < this.establishment ? NUM_MEN_CONST : 0)
 				+ (ESTABLISHMENT_NUM_MEN_LIMIT_2 < this.establishment ? NUM_MEN_CONST : 0)
 				+ (ESTABLISHMENT_NUM_MEN_LIMIT_3 < this.establishment ? NUM_MEN_CONST : 0);
 	}
 
 	private void calculateSum() {
-		this.establishmentCost = (int) Math.round(establishment * this.hourlyRate);
-		this.materialCost = (int) Math.round(Math.max(sqm, minSqm) * this.price * quantity);
+		this.establishmentPrice = (int) Math.round(establishment * this.hourlyRate);
+		this.materialPriceSum = (int) Math.round(Math.max(sqm, minSqm) * this.price * quantity);
 		this.rebateMaterial = (int) -Math.round((Math.max(minSqm, sqm) * this.price * discount * quantity / 100.0));
-		this.totalCostNormTime = quantity * (combinedMeters < COMBINED_METER_LIMIT_3 ? totalCostNormTime : 0);
-		this.workAdditional = quantity * (combinedMeters < COMBINED_METER_LIMIT_3 ? getAdditionalStaffing() : 0);
+		this.totalPriceNormTime = quantity * (combinedMeters < COMBINED_METER_LIMIT_3 ? totalPriceNormTime : 0);
+		this.laborAdditional = quantity * (combinedMeters < COMBINED_METER_LIMIT_3 ? getAdditionalStaffing() : 0);
 	}
 
 	Double getPricePerSqm() {
@@ -186,8 +188,8 @@ public class CalculateGlassArticle {
 		return roundDouble(this.totalTime);
 	}
 
-	Integer getNumberOfMen() {
-		return this.numberOfMen;
+	Integer getNumberOfPersonnel() {
+		return this.numberOfPersonnel;
 	}
 
 	Double getEstablishment() {
@@ -202,16 +204,16 @@ public class CalculateGlassArticle {
 		return this.minimumPrice;
 	}
 
-	Integer getTotalLaborCost() {
-		return this.totalLaborCost;
+	Integer getTotalLaborPrice() {
+		return this.totalLaborPrice;
 	}
 
 	Integer getAdditionalStaffing() {
-		return this.hourlyRate * this.additionalMen * this.additionalHours;
+		return this.hourlyRate * this.additionalPersonnel * this.additionalHours;
 	}
 
-	Integer getTotalCostNormTime() {
-		return this.totalCostNormTime;
+	Integer getTotalPriceNormTime() {
+		return this.totalPriceNormTime;
 	}
 
 	Integer getMaterialPrice() {
@@ -226,32 +228,32 @@ public class CalculateGlassArticle {
 		return this.totalMaterial;
 	}
 
-	Integer getMaterialCost() {
-		return this.materialCost;
+	Integer getMaterialPriceSum() {
+		return this.materialPriceSum;
 	}
 
 	Integer getRebateMaterial() {
 		return this.rebateMaterial;
 	}
 
-	Integer getMaterialTotalCost() {
-		return this.materialCost + this.rebateMaterial;
+	Integer getMaterialTotalPrice() {
+		return this.materialPriceSum + this.rebateMaterial;
 	}
 
-	Integer getWorkAdditional() {
-		return this.workAdditional;
+	Integer getLaborAdditional() {
+		return this.laborAdditional;
 	}
 
-	Integer getEstablishmentCost() {
-		return this.establishmentCost;
+	Integer getEstablishmentPrice() {
+		return this.establishmentPrice;
 	}
 
 	Integer getWorkTotalCost() {
-		return this.totalCostNormTime + this.workAdditional + this.establishmentCost;
+		return this.totalPriceNormTime + this.laborAdditional + this.establishmentPrice;
 	}
 
 	Integer getGrandTotal() {
-		return this.getWorkTotalCost() > 0 ? this.getMaterialTotalCost() + this.getWorkTotalCost() : 0;
+		return this.getWorkTotalCost() > 0 ? this.getMaterialTotalPrice() + this.getWorkTotalCost() : 0;
 	}
 
 	private double roundDouble(double value) {

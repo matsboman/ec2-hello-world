@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.model.Article;
 import com.example.model.CalculationInput;
-import com.example.model.CalculationResult;
 
 @RestController
 public class HelloController {
@@ -36,15 +35,16 @@ public class HelloController {
 
 	@GetMapping(path = "/calculate", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> getCalculation(@RequestBody CalculationInput input) {
-		logger.info("Price:\t\t" + input.getPrice().toString());
-		logger.info("Quantity:\t\t" + input.getQuantity().toString());
-		logger.info("Discount:\t\t" + input.getDiscount().toString());
-		logger.info("width:\t\t" + input.getWidth().toString());
-		logger.info("Height:\t\t" + input.getHeight().toString());
-		logger.info("HourlyRate:\t" + input.getHourlyRate().toString());
-		logger.info("MinSqm:\t\t" + input.getMinSqm().toString());
-		logger.info("AdditionalMen:\t" + input.getAdditionalMen().toString());
-		logger.info("AdditionalHours:\t" + input.getAdditionalHours().toString());
+//		logger.info("Price:\t\t" + input.getPrice().toString());
+//		logger.info("Quantity:\t\t" + input.getQuantity().toString());
+//		logger.info("Discount:\t\t" + input.getDiscount().toString());
+//		logger.info("width:\t\t" + input.getWidth().toString());
+//		logger.info("Height:\t\t" + input.getHeight().toString());
+//		logger.info("HourlyRate:\t\t" + input.getHourlyRate().toString());
+//		logger.info("MinSqm:\t\t" + input.getMinSqm().toString());
+//		logger.info("AdditionalServices:\t\t" + input.getAdditionalServices().toString());
+//		logger.info("AdditionalPersonnel:\t" + input.getAdditionalPersonnel().toString());
+//		logger.info("AdditionalHours:\t\t" + input.getAdditionalHours().toString());
 		calculateArticle.calculate(input);
 		return new ResponseEntity<>(calculateArticle.getResult(), HttpStatus.OK);
 	}
@@ -54,7 +54,7 @@ public class HelloController {
 		Article article = new Article();
 		article.setId(1);
 		article.setTitle("LAMELL 6 mm");
-		article.setPrice(1300);
+		article.setPrice_cents(1300f);
 		List<Article> articleList = new ArrayList<>();
 		articleList.add(article);
 		return new ResponseEntity<>(articleList, HttpStatus.OK);
