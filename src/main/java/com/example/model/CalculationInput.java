@@ -8,7 +8,8 @@ public class CalculationInput {
 	private Integer height;
 	private Integer hourlyRate;
 	private Integer minSqm;
-	private Integer additionalMen;
+	private Float additionalServices;
+	private Integer additionalPersonnel;
 	private Integer additionalHours;
 	
 	public Integer getPrice() {
@@ -53,11 +54,17 @@ public class CalculationInput {
 	public void setMinSqm(Integer minSqm) {
 		this.minSqm = minSqm;
 	}
-	public Integer getAdditionalMen() {
-		return additionalMen;
+	public Float getAdditionalServices() {
+		return additionalServices;
 	}
-	public void setAdditionalMen(Integer additionalMen) {
-		this.additionalMen = additionalMen;
+	public void setAdditionalServices(Float additionalServices) {
+		this.additionalServices = additionalServices;
+	}
+	public Integer getAdditionalPersonnel() {
+		return additionalPersonnel;
+	}
+	public void setAdditionalPersonnel(Integer additionalMen) {
+		this.additionalPersonnel = additionalMen;
 	}
 	public Integer getAdditionalHours() {
 		return additionalHours;
